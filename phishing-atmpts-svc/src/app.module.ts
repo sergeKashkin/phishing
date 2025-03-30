@@ -11,6 +11,7 @@ import { JwtStrategy } from './auth/jwt.strategy';
 @Module({
   imports: [
     MongooseModule.forRoot(
+      process.env.DB_URL ||
       'mongodb+srv://user:password@mycluster.77lmxqd.mongodb.net/?retryWrites=true&w=majority&appName=MyCluster'
     ),
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
