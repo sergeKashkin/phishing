@@ -15,7 +15,7 @@ export class PhishingController {
     const updated = await this.phishingService.handlePhishingClick(id);
     // post to second service
     try {
-      await axios.post('http://localhost:3001/trigger', updated);
+      await axios.post(`${ process.env.URL || 'http://localhost:3001'}/trigger`, updated);
     } catch (error) {
       console.error('❌ Failed to notify SSE service:', error.message);
     }

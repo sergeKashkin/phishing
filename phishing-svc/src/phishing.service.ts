@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import * as nodemailer from 'nodemailer';
-import { PhishingAttempt } from './models/phishing-attempt.model';
 import { Model } from 'mongoose';
+
+import { PhishingAttempt } from './models/phishing-attempt.model';
 
 @Injectable()
 export class PhishingService {
@@ -15,7 +16,7 @@ export class PhishingService {
   async sendPhishingEmail(email: string): Promise<any> {
     const attempt = await this.phishingModel.create({ email });
 
-    const phishingLink = `http://localhost:3000/phishing/click/${attempt._id}`;
+    const phishingLink = `${process.env.URL_SELF || 'http://localhost:3000'}/phishing/click/${attempt._id}`;
 
     const transporter = nodemailer.createTransport({
       host: 'sandbox.smtp.mailtrap.io',
